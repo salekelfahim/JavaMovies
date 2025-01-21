@@ -1,0 +1,6 @@
+<h1>Favorites</h1>
+<ul>
+  <li *ngFor="let movie of favorites$ | async">
+    {{ movie.Title }} ({{ movie.Year }})
+  </li>
+</ul>
