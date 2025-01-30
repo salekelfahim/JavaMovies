@@ -17,5 +17,5 @@ import {AsyncPipe, NgForOf} from "@angular/common";
 export class FavoritesComponent {
   favorites$ = this.store.select(selectFavorites);
 
-  constructor(private store: Store<AppState>) {} // Add <AppState> here
+  constructor(private store: Store<AppState>) {}
 }

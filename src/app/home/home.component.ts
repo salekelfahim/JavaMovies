@@ -18,7 +18,7 @@ export class HomeComponent {
   movies: any[] = [];
   currentPage = 1;
   totalResults = 0;
-  itemsPerPage = 10;
+  itemsPerPage = 12;
 
   constructor(private movieService: MovieService, private store: Store<AppState>) {}
 
@@ -42,10 +42,23 @@ export class HomeComponent {
 
   getPages(): number[] {
     const totalPages = Math.ceil(this.totalResults / this.itemsPerPage);
-    return Array.from({ length: totalPages }, (_, i) => i + 1);
+
+    let startPage = Math.max(1, this.currentPage - 4);
+    let endPage = Math.min(totalPages, this.currentPage + 5);
+
+    if (endPage - startPage < 9) {
+      if (this.currentPage < 5) {
+        endPage = Math.min(10, totalPages);
+      } else {
+        startPage = Math.max(1, totalPages - 9);
+      }
+    }
+    return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
   }
 
   addToFavorites(movie: any) {
     this.store.dispatch(addToFavorites({ movie }));
   }
+
+  protected readonly Math = Math;
 }

@@ -1,19 +1,68 @@
-<h1>Popular Movies</h1>
+<div id="webcrumbs">
+  <div class="min-h-screen bg-gray-900">
+    <header class="relative h-[500px] mb-12 overflow-hidden"> <img
+      src="https://images.unsplash.com/photo-1536440136628-849c177e76a1" alt="Cinema Banner"
+      class="w-full h-full object-cover opacity-50" />
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900"></div>
+      <div class="absolute bottom-8 left-8">
+        <h1 class="text-5xl font-bold tracking-tight mb-2 text-white hover:translate-x-2 transition-transform">Popular
+          Movies</h1>
+        <p class="text-lg text-gray-300 mb-4 max-w-2xl hover:text-white transition-colors">Discover the latest
+          blockbusters and timeless classics in our curated collection of must-watch films.</p>
+        <div class="h-1 w-24 bg-indigo-500 rounded-full transform hover:scale-x-110 transition-transform"></div>
+      </div>
+    </header>
+    <main class="px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div *ngFor="let movie of movies" class="bg-gray-800 rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-all duration-300">
+        <div class="relative">
+          <img [src]="movie.Poster" alt="{{ movie.Title }}" class="w-full h-72 object-cover" loading="lazy" />
+          <button
+            (click)="addToFavorites(movie)"
+            class="absolute top-4 right-4 bg-white/90 p-2 rounded-full hover:bg-pink-100 transition-colors group"
+          >
+            <span class="material-symbols-outlined text-gray-800 group-hover:text-pink-500">favorite</span>
+          </button>
+        </div>
+        <div class="p-4">
+          <h2 class="text-xl font-semibold mb-2 text-white hover:text-indigo-400 transition-colors">{{ movie.Title }}</h2>
+          <div class="flex items-center gap-2 text-white">
+            <span class="material-symbols-outlined text-yellow-500">star</span>
+            <span class="font-medium">{{ movie.Rating }}</span>
+          </div>
+        </div>
+      </div>
 
-<div class="movie-grid">
-  <div *ngFor="let movie of movies" class="movie-card">
-    <img [src]="movie.Poster" alt="{{ movie.Title }}" />
-    <h3>{{ movie.Title }} ({{ movie.Year }})</h3>
-    <button (click)="addToFavorites(movie)" class="favorite-button">❤️ Add to Favorites</button>
+    </main>
+    <div>
+      <nav class="mt-12 pb-8 flex justify-center gap-2">
+        <button
+          class="px-4 py-2 rounded-lg bg-gray-800 text-white shadow-md hover:bg-indigo-500 transition-colors"
+          (click)="onPageChange(currentPage - 1)"
+          [disabled]="currentPage === 1"
+        >
+          <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+
+        <button
+          *ngFor="let page of getPages()"
+          (click)="onPageChange(page)"
+          [class.bg-indigo-500]="page === currentPage"
+          [class.bg-gray-800]="page !== currentPage"
+          [class.text-white]="true"
+          class="px-4 py-2 rounded-lg shadow-md hover:bg-indigo-500 transition-colors"
+        >
+          {{ page }}
+        </button>
+
+        <button
+          class="px-4 py-2 rounded-lg bg-gray-800 text-white shadow-md hover:bg-indigo-500 transition-colors"
+          (click)="onPageChange(currentPage + 1)"
+          [disabled]="currentPage === Math.ceil(totalResults / itemsPerPage)"
+        >
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </button>
+      </nav>
+
+    </div>
   </div>
-</div>
-
-<div class="pagination">
-  <button
-    *ngFor="let page of getPages()"
-    (click)="onPageChange(page)"
-    [class.active]="page === currentPage"
-  >
-    {{ page }}
-  </button>
 </div>
