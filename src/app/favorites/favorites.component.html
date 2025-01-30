@@ -1,6 +1,32 @@
-<h1>Favorites</h1>
-<ul>
-  <li *ngFor="let movie of favorites$ | async">
-    {{ movie.Title }} ({{ movie.Year }})
-  </li>
-</ul>
+<!-- Favorites Component -->
+<div class="max-w-7xl mx-auto p-6">
+  <h1 class="text-3xl font-bold mb-8 text-gray-800">My Favorites</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div *ngFor="let movie of favorites$ | async"
+         class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-200">
+      <img
+        [src]="movie.Poster"
+        [alt]="movie.Title"
+        class="w-full h-96 object-cover"
+        onerror="this.src='https://via.placeholder.com/300x450?text=No+Poster'"
+      />
+      <div class="p-6">
+        <h2 class="text-xl font-bold mb-2">{{ movie.Title }}</h2>
+        <p class="text-gray-600 mb-4">{{ movie.Year }} • {{ movie.Runtime }}</p>
+        <div class="mb-4">
+          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+            {{ movie.Genre }}
+          </span>
+        </div>
+        <p class="text-gray-700 mb-4 line-clamp-3">{{ movie.Plot }}</p>
+        <div class="flex justify-between items-center">
+          <div class="flex items-center">
+            <span class="text-yellow-500">★</span>
+            <span class="ml-1">{{ movie.imdbRating }}/10</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

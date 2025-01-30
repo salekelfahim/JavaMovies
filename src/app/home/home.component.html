@@ -1,0 +1,19 @@
+<h1>Popular Movies</h1>
+
+<div class="movie-grid">
+  <div *ngFor="let movie of movies" class="movie-card">
+    <img [src]="movie.Poster" alt="{{ movie.Title }}" />
+    <h3>{{ movie.Title }} ({{ movie.Year }})</h3>
+    <button (click)="addToFavorites(movie)" class="favorite-button">❤️ Add to Favorites</button>
+  </div>
+</div>
+
+<div class="pagination">
+  <button
+    *ngFor="let page of getPages()"
+    (click)="onPageChange(page)"
+    [class.active]="page === currentPage"
+  >
+    {{ page }}
+  </button>
+</div>

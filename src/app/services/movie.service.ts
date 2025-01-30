@@ -10,6 +10,10 @@ export class MovieService {
   private apiKey = 'c34e2531';
   constructor(private http: HttpClient) {}
 
+  getPopularMovies(page: number = 1): Observable<any> {
+    return this.http.get(`${this.apiUrl}?s=movie&page=${page}&apikey=${this.apiKey}`);
+  }
+
   searchMovies(query: string): Observable<any> {
     return this.http.get(`${this.apiUrl}?s=${query}&apikey=${this.apiKey}`);
   }
